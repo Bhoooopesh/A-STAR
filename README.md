@@ -5,8 +5,8 @@
 <p>To ImplementA * Search algorithm for a Graph using Python 3.</p>
 <H3>Algorithm:</H3>
 
-``````
-// A* Search Algorithm
+
+
 1.  Initialize the open list
 2.  Initialize the closed list
     put the starting node on the open 
@@ -24,7 +24,7 @@
     d) for each successor
         i) if successor is the goal, stop search
         
-        ii) else, compute both g and h for successor
+   ii) else, compute both g and h for successor
           successor.g = q.g + distance between 
                               successor and q
           successor.h = distance from goal to 
@@ -33,22 +33,21 @@
           Manhattan, Diagonal and Euclidean 
           Heuristics)
           
-          successor.f = successor.g + successor.h
-
-        iii) if a node with the same position as 
+successor.f = successor.g + successor.h
+          
+iii) if a node with the same position as 
             successor is in the OPEN list which has a 
            lower f than successor, skip this successor
 
-        iV) if a node with the same position as 
+iV) if a node with the same position as 
             successor  is in the CLOSED list which has
             a lower f than successor, skip this successor
             otherwise, add  the node to the open list
-     end (for loop)
+            end (for loop)
   
-    e) push q on the closed list
-    end (while loop)
+e) push q on the closed list
+end (while loop)
 
-``````
 
 <hr>
 <h2>Sample Graph I</h2>
@@ -117,3 +116,66 @@ G 0 <br>
 <h2>Sample Output</h2>
 <hr>
 Path found: ['A', 'E', 'D', 'G']
+
+<H3>Program:</H3>
+
+```
+
+H_dist = {}
+
+def aStarAlgo(start, goal):
+    open_set = {start}
+    closed_set = set()
+    g = {start: 0}
+    parent = {start: start}
+
+    while open_set:
+        n = min(open_set, key=lambda v: g[v] + H_dist[v])
+
+        if n == goal:
+            path = []
+            while parent[n] != n:
+                path.append(n)
+                n = parent[n]
+            path.append(start)
+            path.reverse()
+            print("Path found:", path)
+            return
+
+        open_set.remove(n)
+        closed_set.add(n)
+
+        for m, cost in Graph_nodes.get(n, []):
+            new_g = g[n] + cost
+
+            if m not in g or new_g < g[m]:
+                g[m] = new_g
+                parent[m] = n
+                open_set.add(m)
+                closed_set.discard(m)
+
+    print("Path does not exist!")
+
+
+Graph_nodes = {}
+n, e = map(int, input().split())
+
+for i in range(e):
+    u, v, cost = input().split()
+    cost = int(cost)
+    Graph_nodes.setdefault(u, []).append((v, cost))
+    Graph_nodes.setdefault(v, []).append((u, cost))
+
+for i in range(n):
+    node, h = input().split()
+    H_dist[node] = int(h)
+
+start = input()
+goal = input()
+
+aStarAlgo(start, goal)
+
+```
+<H3>output:</H3>
+
+<img width="552" height="830" alt="image" src="https://github.com/user-attachments/assets/ed14086d-4a86-48c8-9d56-83a4a19230ec" />
