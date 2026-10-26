@@ -252,3 +252,8 @@ else:
 <H3>output:</H3>
 
 <img width="638" height="831" alt="image" src="https://github.com/user-attachments/assets/9cb84cb2-1a26-45cb-95ed-d1ebe49f5b2c" />
+
+<hr>
+<h3>Result:</h3>
+<hr>
+<p>Thus,The experiment was done successfully.</p>
